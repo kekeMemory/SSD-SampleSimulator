@@ -176,7 +176,7 @@ int CBGC(int nblks,int npages){
 int CatGC(int nblks,int npages){
     int i ;
     int Victim_blk=0;
-    float min=__DBL_MAX__;
+    float max=0.00;
     float age;
     float cat;
     float u=0.00;
@@ -184,9 +184,10 @@ int CatGC(int nblks,int npages){
     for(i=0;i<nblks;i++){
         u=(float)Blk[i].valid_page/N_PAGES_PER_BLOCK;
         age=Blk[i].age;
-        cat = (u/(1-u))*(1.00/age)*(Blk[i].nErase);
-        if (cat<min){
-            min=cat;
+        cat = u/((1-u)*age*Blk[i].nErase);
+        //cat = (u/(1-u))*(1.00/age)*(Blk[i].nErase);
+        if (cat>max){
+            max=cat;
             Victim_blk = i;
         }
     }
