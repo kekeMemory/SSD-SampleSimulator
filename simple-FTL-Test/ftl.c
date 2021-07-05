@@ -38,8 +38,8 @@ int ftl_write(unsigned long lpn){
             if(l2p[lpn]==0xffffffff){
                 Flash[ppn].spare = lpn;
                 Flash[ppn].ps = VALID;
-                Blk[ppn/N_BLOCKS].valid_page++;
-                Blk[ppn/N_BLOCKS].age = (float)current_time/CLOCKS_PER_SEC;
+                Blk[ppn/N_PAGES_PER_BLOCK].valid_page++;
+                Blk[ppn/N_PAGES_PER_BLOCK].age = (float)current_time/CLOCKS_PER_SEC;
                 l2p[lpn]= ppn;
             }
             else {
@@ -48,8 +48,8 @@ int ftl_write(unsigned long lpn){
                 Flash[old_ppn].spare=-1;
                 Flash[ppn].ps = VALID;
                 Flash[ppn].spare = lpn;
-                Blk[ppn/N_BLOCKS].valid_page++;
-                Blk[ppn/N_BLOCKS].age =  (float)current_time/CLOCKS_PER_SEC;
+                Blk[ppn/N_PAGES_PER_BLOCK].valid_page++;
+                Blk[ppn/N_PAGES_PER_BLOCK].age =  (float)current_time/CLOCKS_PER_SEC;
                 l2p[lpn]= ppn;
             }
             ppn=ppn+1;
